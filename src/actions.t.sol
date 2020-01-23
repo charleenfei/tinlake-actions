@@ -4,11 +4,11 @@ import "ds-test/test.sol";
 
 import "./actions.sol";
 
-contract actionsTest is DSTest {
-    actions actions;
+contract ActionsTest is DSTest {
+    Actions actions;
 
     function setUp() public {
-        actions = new actions();
+        actions = new Actions();
     }
 
     function testFail_basic_sanity() public {

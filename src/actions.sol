@@ -1,4 +1,4 @@
-pragma solidity ^0.5.12;
+pragma solidity ^0.5.3;
 contract NFTLike {
     function approve(address usr, uint token) public;
 }

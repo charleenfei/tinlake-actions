@@ -120,6 +120,6 @@ contract ActionsTest is BaseSystemTest {
         uint investment = 100 ether;
         currency.mint(lender_, investment);
         lender.execute(actions, abi.encodeWithSignature("approveERC20(address,address,uint256)", address(currency), address(lenderDeployer.junior()), uint(-1)));
-        lender.execute(actions, abi.encodeWithSignature("supply(address,uint256)", address(operator), investment));
+        lender.execute(actions, abi.encodeWithSignature("supply(address,uint256)", address(juniorOperator), investment));
     }
 }

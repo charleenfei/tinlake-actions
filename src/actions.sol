@@ -45,7 +45,6 @@ contract Actions {
         shelf.withdraw(loan, amount, usr);
     }
 
-
     // --- Lender Actions ---
     function supply(OperatorLike operator, uint amount) public {
         operator.supply(amount);

@@ -12,9 +12,9 @@ contract ShelfLike {
     function unlock(uint loan) public;
     function issue(address registry, uint token) public returns (uint loan);
     function close(uint loan) public;
-    function borrow(uint loan, uint wad) public;
-    function withdraw(uint loan, uint wad, address usr) public;
-    function repay(uint loan, uint wad) public;
+    function borrow(uint loan, uint amount) public;
+    function withdraw(uint loan, uint amount, address usr) public;
+    function repay(uint loan, uint amount) public;
     function shelf(uint loan) public returns(address registry,uint256 tokenId,uint price,uint principal, uint initial);
 }
 
@@ -35,14 +35,51 @@ contract Actions {
     function issue(ShelfLike shelf, address registry, uint token) public returns (uint loan) {
         return shelf.issue(registry, token);
     }
+
     function lock(ShelfLike shelf, uint loan) public {
         shelf.lock(loan);
     }
-    function borrow(ShelfLike shelf, uint loan, uint amount) public {
+
+    function borrowWithdraw(ShelfLike shelf, uint loan, uint amount, address usr) public {
         shelf.borrow(loan, amount);
-    }
-    function withdraw(ShelfLike shelf, uint loan, uint amount, address usr) public {
         shelf.withdraw(loan, amount, usr);
+    }
+
+    function lockBorrowWithdraw(ShelfLike shelf, uint loan, uint amount, address usr) public {
+        shelf.lock(loan);
+        borrowWithdraw(shelf, loan, amount, usr);
+    }
+
+    function issueLockBorrowWithdraw(ShelfLike shelf, address registry, uint token, uint amount, address usr) public {
+        uint loan = shelf.issue(registry, token);
+        lockBorrowWithdraw(shelf, loan, amount, usr);
+    }
+
+    function repay(ShelfLike shelf, uint loan, uint amount) public {
+        shelf.repay(loan, amount);
+    }
+
+    function unlock(ShelfLike shelf, uint loan) public {
+        shelf.unlock(loan);
+    }
+
+    function close(ShelfLike shelf, uint loan) public {
+        shelf.close(loan);
+    }
+
+    function repayUnlock(ShelfLike shelf, uint loan, uint amount) public {
+        shelf.repay(loan, amount);
+        shelf.unlock(loan);
+    }
+
+    function repayUnlockClose(ShelfLike shelf, uint loan, uint amount) public {
+        repayUnlock(shelf, loan, amount);
+        shelf.close(loan);
+    }
+
+    function unlockClose(ShelfLike shelf, uint loan) public {
+        shelf.unlock(loan);
+        shelf.close(loan);
     }
 
     // --- Lender Actions ---

@@ -57,15 +57,6 @@ contract ActionsTest is BaseSystemTest {
         return loan;
     }
 
-    // ----- Admin -----
-    function setLoanParams(uint loan, uint amount) public {
-        // 12 % per year
-        uint speed = 1000000003593629043335673583;
-        admin.setCeiling(loan, amount);
-        admin.doInitRate(uint(12), speed);
-        admin.doAddRate(loan, uint(12));
-    }
-
     function testIssueLockBorrow() public {
         // Borrower: Issue Loan
         (uint tokenId, ) = issueNFT(borrower_);

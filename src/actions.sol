@@ -1,6 +1,5 @@
 pragma solidity ^0.5.3;
 
-import "ds-test/test.sol";
 contract NFTLike {
     function approve(address usr, uint token) public;
     function transferFrom(address sender, address recipient, uint token) public;
@@ -27,7 +26,7 @@ contract OperatorLike {
     function relyInvestor(address usr) public;
 }
 
-contract Actions is DSTest{
+contract Actions {
     function approveNFT(NFTLike registry, address usr, uint token) public {
         registry.approve(usr, token);
     }

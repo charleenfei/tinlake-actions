@@ -15,6 +15,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import "ds-note/note.sol";
+import "../lib/tinlake-proxy/lib/tinlake-title/lib/tinlake-auth/lib/ds-note/src/note.sol";
 
 pragma solidity ^0.5.3;
 
@@ -44,7 +45,7 @@ contract OperatorLike {
     function relyInvestor(address usr) public;
 }
 
-contract Actions {
+contract Actions is DSNote {
     function approveNFT(NFTLike registry, address usr, uint token) public {
         registry.approve(usr, token);
     }

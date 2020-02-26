@@ -15,7 +15,6 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import "ds-note/note.sol";
-import "../lib/tinlake-proxy/lib/tinlake-title/lib/tinlake-auth/lib/ds-note/src/note.sol";
 
 pragma solidity ^0.5.3;
 

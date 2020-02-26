@@ -1,3 +1,21 @@
+// actions.sol -- Tinlake actions
+// Copyright (C) 2020 Centrifuge
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+import "ds-note/note.sol";
+
 pragma solidity ^0.5.3;
 
 contract NFTLike {
@@ -37,14 +55,14 @@ contract Actions {
 
     // --- Borrower Actions ---
 
-    function issue(ShelfLike shelf, NFTLike registry, uint token) public returns (uint loan) {
+    function issue(ShelfLike shelf, NFTLike registry, uint token) note public returns (uint loan) {
         loan = shelf.issue(address(registry), token);
         // proxy approve shelf to take nft
         registry.approve(address(shelf), token);
         return loan;
     }
 
-    function transferIssue(ShelfLike shelf, NFTLike registry, uint token) public returns (uint loan) {
+    function transferIssue(ShelfLike shelf, NFTLike registry, uint token) note public returns (uint loan) {
         // transfer nft from borrower to proxy
         registry.transferFrom(msg.sender, address(this), token);
         return issue(shelf, registry, token);

@@ -1,4 +1,4 @@
-ACTIONS_BIN_DIR=${BIN_DIR:-$(cd "${0%/*}"&&pwd)}
+ACTIONS_BIN_DIR=${ACTIONS_BIN_DIR:-$(cd "${0%/*}"&&pwd)}
 
 # src env for contract deployment
 source $ACTIONS_BIN_DIR/util.sh

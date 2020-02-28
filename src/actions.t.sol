@@ -58,7 +58,7 @@ contract ActionsTest is BaseSystemTest {
         (uint loan) = abi.decode(response, (uint));
         // assert: nft transferred to borrowerProxy
         assertEq(collateralNFT.ownerOf(tokenId), borrowerProxy_);
-        // assert: loand created and owner is borrowerProxy
+        // assert: loan created and owner is borrowerProxy
         assertEq(title.ownerOf(loan), borrowerProxy_);
         return loan;
     }

@@ -11,7 +11,7 @@ dapp update && dapp build --extract
 # create deployment folder
 mkdir $ACTIONS_BIN_DIR/../deployments
 
-export ACTIONS=$(seth send --create $PROXY_BIN_DIR/../out/Actions.bin 'Actions()')
+export ACTIONS=$(seth send --create $ACTIONS_BIN_DIR/../out/Actions.bin 'Actions()')
 message Tinlake Actions Address: $ACTIONS
 
 cd $ACTIONS_BIN_DIR

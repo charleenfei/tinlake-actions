@@ -14,7 +14,7 @@ export ACTIONS=$(seth send --create ./out/Actions.bin 'Actions()')
 message Tinlake Actions Address: $ACTIONS
 
 cd $ACTIONS_BIN_DIR
-DEPLOYMENT_FILE=$ACTIONS_BIN_DIR../deployments/addresses_$(seth chain).json
+DEPLOYMENT_FILE=$ACTIONS_BIN_DIR/../deployments/addresses_$(seth chain).json
 
 touch $DEPLOYMENT_FILE
 

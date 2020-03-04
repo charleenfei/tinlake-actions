@@ -7,11 +7,14 @@ source $ACTIONS_BIN_DIR/test/local_env.sh
 # create address file and build contracts
 dapp update && dapp build --extract
 
+# create deployment folder
+mkdir $ACTIONS_BIN_DIR/../deployments
+
 export ACTIONS=$(seth send --create ./out/Actions.bin 'Actions()')
 message Tinlake Actions Address: $ACTIONS
 
 cd $ACTIONS_BIN_DIR
-DEPLOYMENT_FILE=../deployments/addresses_$(seth chain).json
+DEPLOYMENT_FILE=$ACTIONS_BIN_DIR../deployments/addresses_$(seth chain).json
 
 touch $DEPLOYMENT_FILE
 

@@ -48,7 +48,7 @@ contract OperatorLike {
     function relyInvestor(address usr) public;
 }
 
-contract Actions is DSNote, DSTest {
+contract Actions is DSNote {
     function approveNFT(NFTLike registry, address usr, uint token) public {
         registry.approve(usr, token);
     }

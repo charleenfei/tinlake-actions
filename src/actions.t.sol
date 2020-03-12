@@ -5,6 +5,10 @@ import { BaseSystemTest } from "tinlake/test/system/base_system.sol";
 import { AdminUser } from "tinlake/test/system/users/admin.sol";
 import "./actions.sol";
 
+contract Hevm {
+    function warp(uint256) public;
+}
+
 contract ActionsTest is BaseSystemTest {
     address       actions;
     address       self;
@@ -17,6 +21,8 @@ contract ActionsTest is BaseSystemTest {
 
     Proxy randomUserProxy;
     address randomUserProxy_ ;
+
+    Hevm public hevm; 
 
     function setUp() public {
         bool seniorTranche = false;
@@ -37,6 +43,9 @@ contract ActionsTest is BaseSystemTest {
 
         randomUserProxy     = Proxy(registry.build());
         randomUserProxy_   = address(randomUserProxy);
+
+        hevm = Hevm(0x7109709ECfa91a80626fF3989D68f67F5b1DD12D);
+        hevm.warp(1234567);
     }
 
     // ----- Lender -----
@@ -132,10 +141,15 @@ contract ActionsTest is BaseSystemTest {
         // Borrower: Lock & Borrow
         borrowerProxy.execute(actions, abi.encodeWithSignature("lockBorrowWithdraw(address,uint256,uint256,address)", address(shelf), loan, amount, borrower_));
        
+        // accrue interest
+        hevm.warp(now + 365 days);
+
+        // mint currency for borrower to cover interest 
+        currency.mint(borrower_, 15 ether);
         // allow proxy to take money for repayment
-        currency.approve(borrowerProxy_, amount);
+        currency.approve(borrowerProxy_, 115 ether);
         // Borrower: Repay & Unlock & Close
-        borrowerProxy.execute(actions, abi.encodeWithSignature("repayUnlockClose(address,address,uint256,address,uint256,uint256)", address(shelf), address(collateralNFT), tokenId, address(currency), loan, amount));
+        borrowerProxy.execute(actions, abi.encodeWithSignature("repayUnlockClose(address,address,address,uint256,address,uint256)", address(shelf), address(pile), address(collateralNFT), tokenId, address(currency), loan));
         // assert: nft transfered back to borrower
         assertEq(collateralNFT.ownerOf(tokenId), address(borrower_));
         assertEq(pile.debt(loan), 0);

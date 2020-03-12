@@ -92,9 +92,9 @@ contract Actions is DSNote {
     }
 
     function repay(ShelfLike shelf, ERC20Like erc20, uint loan, uint amount) public {
-        erc20.approve(address(shelf), amount);
         // transfer money from borrower to proxy
         erc20.transferFrom(msg.sender, address(this), amount);
+        erc20.approve(address(shelf), amount);
         shelf.repay(loan, amount);
     }
 

@@ -2,7 +2,6 @@ ACTIONS_BIN_DIR=${ACTIONS_BIN_DIR:-$(cd "${0%/*}"&&pwd)}
 cd $ACTIONS_BIN_DIR
 # src env for contract deployment
 source $ACTIONS_BIN_DIR/util.sh
-source $ACTIONS_BIN_DIR/test/local_env.sh
 
 # create address file and build contracts
 cd $ACTIONS_BIN_DIR/../
